@@ -1,0 +1,4 @@
+/* use '@import' to integrate the Bootstrap to the app */
+/* then add '//= require bootstrap' into 'app/assets/javascripts/application.js' */
+@import "bootstrap-sprockets";
+@import "bootstrap"

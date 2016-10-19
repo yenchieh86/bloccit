@@ -38,6 +38,10 @@ gem 'jquery-rails'
 # turbolinks makes following links in your web application faster. Read more! https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+# use to install Bootstrap for CSS frameworks, then run 'bundle install'
+# after install, rename the file 'application.css' to 'application.scss'
+gem 'bootstrap-sass'
+
 # because the Gemfile has been changed, so need to type 'bundle install --without productiob' in the Terminal's command line
 # this command will installs everything specified in the 'Gemfile' and ensures that all gems work well
 # '--without production' is to ignores all gems which in 'group :production'
