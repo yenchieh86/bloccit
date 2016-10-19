@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   get 'welcome/about'
   get 'welcome/contact'
+  get 'welcome/faq'
   
   # root method allows us to declare the view on default page for home page URL
   # root takes a hash as an argument, the line is same as 'root ({to: 'welcome#index'})
