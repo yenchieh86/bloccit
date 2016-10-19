@@ -37,3 +37,11 @@ gem 'turbolinks'
 # need to type 'rake db:create' to create a new local database, need to use this command everytime after we create a new app or dropping an existing database
 # Heroku's URL 'https://devcenter.heroku.com/articles/rails-4-asset-pipeline'
 # for Cloud9, need to use 'rails s -p $PORT -b $IP' on the Terminal before run the Rails server 'rails s'
+# to use Heroke, enter below codes in termainal: 'heroku create' use to create a name, 'git push heroku master' use to push code from git repository to Heroku
+
+# if close the windows before shutdown Rails server, use 'rails s -p $PORT -b $IP -d' to simulate losing track of Rails server, '-d' options will stars the Rails server as a backgroung process
+# use 'lsof -i:$PORT' to find PID
+# at last, use 'kill -9 PID' to kill the server
+
+# for MVC, use 'rails generate controller welcome index about' to generate all necessary files
+# there're three arguments for 'rails': 'welcome' - name of controller, 'index' and 'about' - are views
