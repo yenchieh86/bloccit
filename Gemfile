@@ -19,6 +19,14 @@ group :development do
   gem 'sqlite3'
 end
 
+# add the gem to Gemfile for the RSpec Test
+# this code lets the 'tasks' and 'generators' of 'rspec-rails' are available for both ':development' and ':test'
+# use '~> x.x' to choose specified version
+# use 'bundle' to install RSpec, then 'rails generate rspec:install' to configure the project for testing
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 # use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # use Uglifier as compressor for JavaScript assets
@@ -35,9 +43,12 @@ gem 'turbolinks'
 # '--without production' is to ignores all gems which in 'group :production'
 # this Production environment will automatically run 'bundle install' when we deploy, and it will account for gems declared in 'group :production at that point'
 # need to type 'rake db:create' to create a new local database, need to use this command everytime after we create a new app or dropping an existing database
+
 # Heroku's URL 'https://devcenter.heroku.com/articles/rails-4-asset-pipeline'
+
 # for Cloud9, need to use 'rails s -p $PORT -b $IP' on the Terminal before run the Rails server 'rails s'
-# to use Heroke, enter below codes in termainal: 'heroku create' use to create a name, 'git push heroku master' use to push code from git repository to Heroku
+
+# to use Heroke, enter below codes in termainal: 'heroku create' use to create a name for project, 'git push heroku master' use to push code from git repository to Heroku
 
 # if close the windows before shutdown Rails server, use 'rails s -p $PORT -b $IP -d' to simulate losing track of Rails server, '-d' options will stars the Rails server as a backgroung process
 # use 'lsof -i:$PORT' to find PID
