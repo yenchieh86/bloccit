@@ -1,2 +1,10 @@
 /* this CSS file will be created by use 'rails generate controller' in command line */
 /* each controller will has a CSS and HTML file */
+
+.social-btn {
+    height: 50px;
+    width: 100px;
+    background-color: black;
+    color: white;
+    padding: 5;
+}
