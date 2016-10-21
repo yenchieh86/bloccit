@@ -14,6 +14,13 @@ require 'random_data'
         )
 end
 
+1.times do
+   Post.find_or_create_by(
+       title: "HiYen",
+       body: "HIHIYen"
+       )
+end
+
 posts = Post.all
 
 # create Comments
@@ -25,6 +32,13 @@ posts = Post.all
        post: posts.sample,
        body: RandomData.random_paragraph
        ) 
+end
+
+1.times do
+   Comment.find_or_create_by(
+       post: posts[100],
+       body: "hihihi"
+   )
 end
 
 puts "Seed finished"
