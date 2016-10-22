@@ -7,6 +7,7 @@ class PostsController < ApplicationController
     # use 'Post.all' to return a collection of Post objects, and to assign those objects to '@post'
     # '.all' method is in 'ActiveRecord'
     @posts = Post.all
+    @posts.each_with_index { |post, index| post.title = 'SPAM' unless index % 5 != 0}
   end
 
   def show
