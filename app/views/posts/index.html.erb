@@ -1,0 +1,24 @@
+<h1>All Posts</h1>
+
+<!-- 
+1. use '.each' to run over every post in '@posts'.
+2. create a link ('post.title) as the text, which will links to '/posts/id'(the id is from 'post.id')
+3. the instance variables that we create in a controller method are available in the view which associated to that controller
+4. can use '@post' in the posts index view, because we have create and assign '@post' in 'PostsController#index'
+5. 'link_to' method will checks object(the second argument - the post we are going to link), analyzes the object's id, and use the id to create the path
+6. because the above reason, use 'post' to replace 'post_path(post.id)'
+-->
+<!--
+can use 'rake routes | grep 'posts#show' in terminal to check the method for 'post_path'
+
+can use '/posts/' after URL to see all posts's title
+-->
+<% @posts.each do |post| %>
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading">
+                <%= link_to post.title, post %>
+            </h4>
+        </div>
+    </div>
+<% end %>

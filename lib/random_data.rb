@@ -19,7 +19,7 @@ module RandomData
     # define 'random_sentence'
     def self.random_sentence
         strings = []
-        rand(3.8).times do
+        rand(3..8).times do
             # use 'random_word' to create random words
             strings << random_word
         end
