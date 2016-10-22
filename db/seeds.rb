@@ -1,7 +1,5 @@
 require 'random_data'
 
-
-
 1.times do
    Post.find_or_create_by(
        title: "HiYen",
@@ -45,8 +43,10 @@ end
        ) 
 end
 
+50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
+puts "#{Advertisement.count} advertisements created"
