@@ -1,5 +1,14 @@
 require 'random_data'
 
+
+
+1.times do
+   Post.find_or_create_by(
+       title: "HiYen",
+       body: "HIHIYen"
+       )
+end
+
 # create Posts
 50.times do
     # add a '!' after '.create' let program to raise an error if there's a problem with the data we're seeding
@@ -14,14 +23,16 @@ require 'random_data'
         )
 end
 
-1.times do
-   Post.find_or_create_by(
-       title: "HiYen",
-       body: "HIHIYen"
-       )
-end
+
 
 posts = Post.all
+
+1.times do
+   Comment.find_or_create_by(
+       post: posts[1],
+       body: "hihihi"
+   )
+end
 
 # create Comments
 # use '.times' on an 'Inteer'(a number object)
@@ -34,12 +45,7 @@ posts = Post.all
        ) 
 end
 
-1.times do
-   Comment.find_or_create_by(
-       post: posts[100],
-       body: "hihihi"
-   )
-end
+
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
