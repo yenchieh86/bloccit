@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # had remove 'get "welcome/index"' because we have declared the index view as the root view.
   # also modity the 'about' route to allow user to visit '/about', rather than '/welcome/about'
   get 'about' => 'welcome#about'
+  get 'faq' => 'welcome#faq'
   
   
   # root method allows us to declare the view on default page for home page URL
