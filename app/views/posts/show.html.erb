@@ -1,2 +1,19 @@
 <h1><%= @post.title %></h1>
-<p><%= @post.body %></p>
+
+<div class="row">
+    <div class="col-md-8">
+        <p><%= @post.body %></p>
+    </div>
+    <div class="col-md-4">
+        <!-- format a link as an Edit button, which driects user to '/posts/@post.id/edit' -->
+        <!-- 'edit_post_path(@post)' is a method that generated in routes.rb by 'resources :posts' -->
+        <!-- can use 'rake routes' to wiew the post routes -->
+        <%= link_to "Edit", edit_post_path(@post), class: 'btn btn-success' %>
+        <!-- use 'link_to' to create a 'delete button, and the text is 'Delete Post' -->
+        <!-- use 'method: :delete' to override the default method 'method: :post', so when the user push the button, the route will call delete route -->
+        <!-- use 'class:' to set style of the button -->
+        <!-- 'data:' is a Hash, 'confirm' is the key of the data hash -->
+        <!-- 'data:' will use JavaScript to confirm a action when user presses the button -->
+        <%= link_to "Delete Post", @post, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this post?'} %>
+    </div>
+</div>

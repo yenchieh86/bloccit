@@ -99,11 +99,69 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
-  #describe "GET #edit" do
-    #it "returns http success" do
-      #get :edit
-      #expect(response).to have_http_status(:success)
-    #end
-  #end
+  describe "GET edit" do
+    it "returns http success" do
+      get :edit, {id: my_post.id}
+      expect(response).to have_http_status(:success)
+    end
+    
+    it "renders the #edit view" do
+      get :edit, {id: my_post.id}
+      # expect the edit view to render when a post is edited
+      expect(response).to render_template :edit
+    end
+    
+    # make sure the update of the @post is correct
+    it "assigns post to be updated to @post" do
+      get :edit, {id: my_post.id}
+      
+      post_instance = assigns(:post)
+      
+      expect(post_instance.id).to eq my_post.id
+      expect(post_instance.title).to eq my_post.title
+      expect(post_instance.body).to eq my_post.body
+    end
+  end
+  
+  describe "PUT update" do
+    it "updates post with expected attributes" do 
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+      
+      put :update, id: my_post.id, post: {title: new_title, body: new_body}
+      
+      # check title and body of the @post has been update, also check the id of @post was not changed
+      updated_post = assigns(:post)
+      expect(updated_post.id).to eq my_post.id
+      expect(updated_post.title).to eq new_title
+      expect(updated_post.body).to eq new_body
+    end
+    
+    it "redirects to the updated post" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+      
+      # check did it redirected to the posts 'show view' after update
+      put :update, id: my_post.id, post: {title: new_title, body: new_body}
+      expect(response).to redirect_to my_post
+    end
+  end
+  
+  describe "DELETE destroy" do
+    it "deletes the post" do
+      delete :destroy, {id: my_post.id}
+      # use '.where' to search a post which has same id as 'my_post.id'
+      # 'Post.where({id: my_post.id}).size' will return a size(.size) of array 'Post.where({id: my_post.id})' to count
+      # count should equal 0, because there's no match after destory was called and deleted the post
+      count = Post.where({id: my_post.id}).size
+      expect(count).to eq 0
+    end
+    
+    it "redirects to posts index" do
+      delete :destroy, {id: my_post.id}
+      # make sure it will redirected to the posts index view after deleted a post
+      expect(response).to redirect_to posts_path
+    end
+  end
 
 end
