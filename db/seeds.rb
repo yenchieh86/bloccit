@@ -44,9 +44,11 @@ end
 end
 
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
+50.times { Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: (rand(1..3) > 2))}
 
 
 puts "Seed finished"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
+puts "#{Question.count} questions created"
