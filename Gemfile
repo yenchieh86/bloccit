@@ -25,6 +25,9 @@ end
 # use 'bundle' to install RSpec, then 'rails generate rspec:install' to configure the project for testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  
+  # use the methods provided by Shoulda     
+  gem 'shoulda'
 end
 
 # use SCSS for stylesheets

@@ -1,11 +1,20 @@
 require 'random_data'
 
-1.times do
-   Post.find_or_create_by(
-       title: "HiYen",
-       body: "HIHIYen"
-       )
+# create topics
+15.times do
+    Topic.create!(
+        name: RandomData.random_sentence,
+        description: RandomData.random_paragraph
+    )
 end
+
+topics = Topic.all
+
+Post.find_or_create_by(
+    topic: topics.sample,
+    title: "HiYen",
+    body: "HIHIYen"
+    )
 
 # create Posts
 50.times do
@@ -16,6 +25,7 @@ end
         # it will increase productivity if we are writing code for classes and methods that don't exist
         # writing code for the class and method that don't exist can help us to stay fouchsed on one problem at a time
         # so the process will be: 'use a not existed method to write code' >> 'create a file and statement for that methoed'
+        topic: topics.sample,
         title: RandomData.random_sentence,
         body: RandomData.random_paragraph
         )
@@ -25,12 +35,11 @@ end
 
 posts = Post.all
 
-1.times do
-   Comment.find_or_create_by(
-       post: posts[1],
-       body: "hihihi"
-   )
-end
+Comment.find_or_create_by(
+    post: posts[1],
+    body: "hihihi"
+)
+
 
 # create Comments
 # use '.times' on an 'Inteer'(a number object)
@@ -46,8 +55,9 @@ end
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 50.times { Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: (rand(1..3) > 2))}
 
-
+# display informations
 puts "Seed finished"
+puts "#{Topic.count} topics creates"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"

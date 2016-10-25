@@ -12,6 +12,8 @@
 
 class Post < ActiveRecord::Base
     
+    belongs_to :topic
+    
     # set this post class to relate to the comment class
     # by using 'has_many' method can allow a post instance to have many comments, relate to many comment class, also provide method for us to access to those comment
     # use 'dependent: :destroy' to make sure that we delete the post's comment too

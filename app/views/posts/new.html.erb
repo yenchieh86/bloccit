@@ -17,7 +17,7 @@
         <!-- 'form_for' work like 'link_to', a Rails method that generates HTML code -->
         <!-- use 'form_for' to accept a post's title and body that user submitted, and then create a new post -->
         <!-- 'form_for' can access '@post'(new post instance) as a object -->
-        <%= form_for @post do |f| %>
+        <%= form_for [@post.topic, @post] do |f| %>
             <div class="form_group">
                 <!-- use 'f.label' to display key 'Title' -->
                 <!-- 'f.label' method is provided by 'form_for', and act like '<label>' -->
