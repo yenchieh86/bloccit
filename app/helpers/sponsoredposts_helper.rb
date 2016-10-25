@@ -1,0 +1,2 @@
+module SponsoredpostsHelper
+end

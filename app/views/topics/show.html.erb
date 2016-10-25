@@ -1,6 +1,8 @@
 <h1><%= @topic.name %></h1>
 <%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
 <%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this topic?'} %>
+
+
 <div class="row">
     <div class="col-md-8">
         <p class="lead"><%= @topic.description %></p>
@@ -22,8 +24,22 @@
             </div>
         <% end %>
    </div>
+    <div class="col-md-8">
+        <p class="lead"><%= @topic.description %></p>
+        <% @topic.sponsoredposts.each do |sponsoredpost| %>
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <%= link_to sponsoredpost.title, topic_sponsoredpost_path(@topic, sponsoredpost) %>
+                    </h4>
+                </div>
+            </div>
+        <% end %>
+   </div>
    <div class="col-md-4">
        <!-- replace 'new_post_path' to 'new_topic_post_path' to reflect the nested route we generated in 'routes.rb' -->
        <%= link_to "New Post", new_topic_post_path(@topic), class: 'btn btn-success' %>
+       <%= link_to "New Sponsoredpost", new_topic_sponsoredpost_path(@topic), class: 'btn btn-success' %>
+
    </div>
  </div>
