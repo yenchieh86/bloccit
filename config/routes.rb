@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     resources :posts, except: [:index]
     resources :sponsoredposts
   end
+  
+  # create routes for 'new' and create actions
+  # the 'only' hash key will prevent Rails from creating unnecessary routes
+  resources :users, only: [:new, :create]
+  
   # create HTTP 'GET' routes for index and about views
   # had remove 'get "welcome/index"' because we have declared the index view as the root view.
   # also modity the 'about' route to allow user to visit '/about', rather than '/welcome/about'

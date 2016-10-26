@@ -30,6 +30,9 @@ group :development, :test do
   gem 'shoulda'
 end
 
+# used for encrypting User passwords
+gem 'bcrypt'
+
 # use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # use Uglifier as compressor for JavaScript assets
