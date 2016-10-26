@@ -1,16 +1,6 @@
 <!-- this code will be pass into the 'render partial' block in 'posts/edit.html.erb'-->
 <!-- this is a file will 'partial, so it have to name this way '_form.html', or it won't work for Rails -->
 <%= form_for [topic, post] do |f| %>
-<<<<<<< HEAD
-    <div class="form-group">
-        <%= f.label :title %>
-        <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
-    </div>
-    <div class="form-group">
-        <%= f.label :body %>
-        <%= f.text_area :body, row: 8, class: 'form-conttrol', placeholder: "Enter post body" %>
-    </div>
-=======
     <% if post.errors.any? %>
         <!-- use alert to display number of errors and their messages -->
         <div class="alert alert-danger">
@@ -33,7 +23,6 @@
         <%= f.label :body %>
         <%= f.text_area :body, row: 8, class: 'form-conttrol', placeholder: "Enter post body" %>
     <% end %>
->>>>>>> cp23
     <div class="form-group">
         <%= f.submit "Save", class: 'btn btn-success' %>
     </div>    
