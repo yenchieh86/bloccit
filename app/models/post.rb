@@ -20,4 +20,10 @@ class Post < ActiveRecord::Base
     # then use 'link_to' add a link to delete posts on the show view
     has_many :comments, dependent: :destroy
     
+    # use to set that 'Post' the data of 'title', 'body', 'topic' is exist
+    # to set up the minimum length of 'title' and 'body'
+    validates :title, length: { minimum: 5 }, presence: true
+    validates :body, length: { minimum: 20 }, presence: true
+    validates :topic, presence: true
+    
 end

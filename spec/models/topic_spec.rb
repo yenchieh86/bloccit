@@ -8,7 +8,7 @@ RSpec.describe Topic, type: :model do
     
     # use the methods provided by Shoulda     
     it { is_expected.to have_many(:posts) }
-    
+    it { is_expected.to have_many(:sponsoredposts) }
     # to confirm that a topic respond to the appropriate attributes
     describe "attributes" do
         it "has name, description, and public attributes" do
