@@ -54,7 +54,7 @@ end
 
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 50.times { Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: (rand(1..3) > 2))}
-
+50.times { Sponsoredpost.create!(topic: topics.sample, title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 # display informations
 puts "Seed finished"
 puts "#{Topic.count} topics creates"
@@ -62,3 +62,4 @@ puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
 puts "#{Question.count} questions created"
+puts "#{Sponsoredpost.count} Sponsoredpost created"

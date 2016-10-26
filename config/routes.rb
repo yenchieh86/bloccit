@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-
+  
+  resources :advertisements
+  resources :questions
+  
   # called 'resources' method and pass a 'Symbol'
   # it let Rails to create post routes for creating , updating, viewing, and deleting an instances of 'Post'
   resources :topics do
     # pass 'resources :posts' to the 'resources :topics' block, to nests the post routes under the topic routes
     # doesn't have an 'index' route for posts any more. All posts will show on a toipc show view
-    resources :posts, :advertisements, :questions, except: [:index]
+    resources :posts, except: [:index]
+    resources :sponsoredposts
   end
   # create HTTP 'GET' routes for index and about views
   # had remove 'get "welcome/index"' because we have declared the index view as the root view.

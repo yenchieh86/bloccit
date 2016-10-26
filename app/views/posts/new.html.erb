@@ -17,30 +17,7 @@
         <!-- 'form_for' work like 'link_to', a Rails method that generates HTML code -->
         <!-- use 'form_for' to accept a post's title and body that user submitted, and then create a new post -->
         <!-- 'form_for' can access '@post'(new post instance) as a object -->
-        <%= form_for [@post.topic, @post] do |f| %>
-            <div class="form_group">
-                <!-- use 'f.label' to display key 'Title' -->
-                <!-- 'f.label' method is provided by 'form_for', and act like '<label>' -->
-                <!-- create a label for title -->
-                <%= f.label :title %>
-                <!-- 'f.text_field' method is provided by 'form_for', and act like '<input>' -->
-                <!-- 'f.text_field' will take the user input into post[title] -->
-                <!-- create a text field to put in the string(title) -->
-                <%= f.text_field :title %>
-            </div>
-            <div class="form-group">
-                <!-- create a label for body -->
-                <%= f.label :body %>
-                <!-- create a text area to put in the paragraph(body) -->
-                <%= f.text_area :body %>
-            </div>
-            <div class="form-group">
-                <!-- 'f.submit' act like in '<input>' tag of 'submit' type -->
-                <!-- create a save button -->
-                <!-- when user click this button, the 'create method' will be called -->
-                <%= f.submit "Save" %>
-            </div>
-        <% end %>
+        <%= render partial: 'form', locals: { topic: @topic, post: @post } %>
     </div>
 </div>
 
