@@ -36,7 +36,7 @@ class PostsController < ApplicationController
       redirect_to [@topic, @post]
     else
       # will display an error message
-      flash.new[:alert] = "There was an error saving the post. Please try again."
+      flash.now[:alert] = "There was an error saving the post. Please try again."
       # will show ':new'(the new view) again
       render :new
     end
