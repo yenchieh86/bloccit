@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
     
     # to register an inline callback directly after the 'before_save' callback
     # ' { self.email = email.downcase } ' is the code that will run when 'before_save' been called
+    before_save { set_name }
     before_save { self.email = email.downcase if email.present? }
     
     # use 'validates' function to ensure that 'name' is present and has a minimum and minimum length
@@ -29,4 +30,16 @@ class User < ActiveRecord::Base
     # 'BCrypt' is a module that encapsulates complex hashing algorithms 
     # 'BCrypt' takes a plain text password and turns it into an unrecognizable string of characters using a hashing algorithm such as MD5. 
     # use 'BCrypt' is more save than hashing algorithms, because it can't be reverse even someone has access to the password
+    
+    def set_name
+        if name 
+            array = name.split(' ')
+            new_array = []
+            array.each do |a|
+                new_array << a.capitalize
+            end
+            self.name = new_array.join(' ')
+        end
+    end
+    
 end
