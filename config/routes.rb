@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   # the 'only' hash key will prevent Rails from creating unnecessary routes
   resources :users, only: [:new, :create]
   
+  # add the routes for sessions' ':new', ':creat' and ':destroy' method
+  # need to run 'rake routes | grep session' to check
+  resources :sessions, only: [:new, :create, :destroy]
+  
   post 'users/confirm' => 'users#confirm'
   
   # create HTTP 'GET' routes for index and about views
