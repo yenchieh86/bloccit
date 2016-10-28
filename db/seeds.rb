@@ -1,5 +1,19 @@
 require 'random_data'
 
+# create Users
+# 'random_name' and 'random_email' need to be defined in </lib/random_data.rb> as 'slef.random_name' and 'self.random_email'
+5.times do
+    User.create!(
+        #3
+        name: RandomData.random_name,
+        email: RandomData.random_email,
+        password: RandomData.random_sentence
+    )
+end
+
+users = User.all
+
+
 # create topics
 15.times do
     Topic.create!(
@@ -11,6 +25,7 @@ end
 topics = Topic.all
 
 Post.find_or_create_by(
+    user: users.sample,
     topic: topics.sample,
     title: "HiYen",
     body: "HIHIYen"
@@ -25,6 +40,7 @@ Post.find_or_create_by(
         # it will increase productivity if we are writing code for classes and methods that don't exist
         # writing code for the class and method that don't exist can help us to stay fouchsed on one problem at a time
         # so the process will be: 'use a not existed method to write code' >> 'create a file and statement for that methoed'
+        user: users.sample,
         topic: topics.sample,
         title: RandomData.random_sentence,
         body: RandomData.random_paragraph
@@ -52,11 +68,20 @@ Comment.find_or_create_by(
        ) 
 end
 
+# create a user so I can use it to test the app
+user = User.first
+user.update_attributes!(
+    name: "yen",
+    email: "yen@bloc.com",
+    password: "jack4930"
+)
+
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 50.times { Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: (rand(1..3) > 2))}
 50.times { Sponsoredpost.create!(topic: topics.sample, title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 # display informations
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{Topic.count} topics creates"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"

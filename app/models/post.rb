@@ -13,6 +13,7 @@
 class Post < ActiveRecord::Base
     
     belongs_to :topic
+    belongs_to :user
     
     # set this post class to relate to the comment class
     # by using 'has_many' method can allow a post instance to have many comments, relate to many comment class, also provide method for us to access to those comment
@@ -20,10 +21,14 @@ class Post < ActiveRecord::Base
     # then use 'link_to' add a link to delete posts on the show view
     has_many :comments, dependent: :destroy
     
+    # user 'default_scope' to order all posts in scope inorder by 'created_at'(create time - first one will be the most recent post)
+    default_scope { order('created_at DESC') }
+    
     # use to set that 'Post' the data of 'title', 'body', 'topic' is exist
     # to set up the minimum length of 'title' and 'body'
     validates :title, length: { minimum: 5 }, presence: true
     validates :body, length: { minimum: 20 }, presence: true
     validates :topic, presence: true
+    validates :user, presence: true
     
 end

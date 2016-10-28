@@ -17,29 +17,17 @@
                     </h4>
                     <!-- add submission and comment details for each post in the show view -->
                     <small>
-                        submitted <%= time_ago_in_words(post.created_at) %> ago <br>
+                        submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
                         <%= post.comments.count %> Comments
                     </small>
                 </div>
             </div>
         <% end %>
    </div>
-    <div class="col-md-8">
-        <p class="lead"><%= @topic.description %></p>
-        <% @topic.sponsoredposts.each do |sponsoredpost| %>
-            <div class="media">
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <%= link_to sponsoredpost.title, topic_sponsoredpost_path(@topic, sponsoredpost) %>
-                    </h4>
-                </div>
-            </div>
-        <% end %>
-   </div>
-   <div class="col-md-4">
+ </div>
+<div>
        <!-- replace 'new_post_path' to 'new_topic_post_path' to reflect the nested route we generated in 'routes.rb' -->
        <%= link_to "New Post", new_topic_post_path(@topic), class: 'btn btn-success' %>
        <%= link_to "New Sponsoredpost", new_topic_sponsoredpost_path(@topic), class: 'btn btn-success' %>
 
-   </div>
- </div>
+</div>

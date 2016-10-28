@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
     
+    has_many :posts
+    
     # to register an inline callback directly after the 'before_save' callback
     # ' { self.email = email.downcase } ' is the code that will run when 'before_save' been called
     before_save { set_name }
     before_save { self.email = email.downcase if email.present? }
+    
     
     # use 'validates' function to ensure that 'name' is present and has a minimum and minimum length
     validates :name, length: { minimum: 1, maximum: 100 }, presence: true

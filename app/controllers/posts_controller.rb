@@ -3,6 +3,9 @@
 
 class PostsController < ApplicationController
   
+  #12
+  before_action :require_sign_in, except: :show
+  
   def show
     # use '.find' to find post that match the ':id' we passed in 'params', and assign the post to @post
     # 'show' differen't than 'index' is 'show' only return a single post, 'index' return a collection of posts
@@ -18,13 +21,17 @@ class PostsController < ApplicationController
   end
   
   def create
-    # use 'Post.new' to create a new instance of Post
-    @post = Post.new
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+    
     @topic = Topic.find(params[:topic_id])
-    # assign a topic to a post
-    @post.topic = @topic
+    
+    # replace  @post = Post.new
+    #          @post.title = params[:post][:title]
+    #          @post.body = params[:post][:body]
+    #          @post.topic = @topic
+    @post = @topic.posts.build(post_params)
+    
+    # assign a user to a '@post.user', then will use '@post.user' to assign new post to user scope
+    @post.user = current_user
     
     # check if the new instance of Post has been successful saved
     if @post.save
@@ -48,8 +55,10 @@ class PostsController < ApplicationController
   
   def update 
     @post = Post.find(params[:id])
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+    
+    #replace  @post.title = params[:post][:title]
+    #         @post.body = params[:post][:body]
+    @post.assign_attributes(post_params)
     
     if @post.save
       flash[:notice] = "Post was updated."
@@ -72,5 +81,11 @@ class PostsController < ApplicationController
       flash.now[:alert] = "There was an error deleting the post."
       render :show
     end
+  end
+  
+  private
+  
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 end
