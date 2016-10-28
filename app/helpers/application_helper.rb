@@ -12,4 +12,10 @@ module ApplicationHelper
         # 'content_tag' take a 'symbol argument'(block), and an 'option hash'. It will create the symbol-specified HTML tag with the block contents, and the options are for specified
         content_tag :div, capture(&block), class: css_class
     end
+    
+    # access the 'Gravatar' to get global recongnized avatar from 'Gravatar' by email
+    def avatar_url(user)
+        gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+        "http://gravatar.com/avatar/#{gravatar_id}.png?s=48"
+    end
 end

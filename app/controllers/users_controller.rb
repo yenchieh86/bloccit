@@ -12,6 +12,7 @@ class UsersController < ApplicationController
        
        if @user.save
            flash[:notice] = "Welcome to Bloccit #{@user.name}!"
+           # use to automatically sign in users after they sign up
            create_session(@user)
            redirect_to root_path
        else
