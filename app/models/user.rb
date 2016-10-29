@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
     before_save { set_name }
     before_save { self.email = email.downcase if email.present? }
     
+    # '||=' is a Ruby trick
+    # 'self.role ||= :member' is a shorthand for 'self.role = :member if self.role.nil?'
+    before_save { self.role ||= :member }
+    
     
     # use 'validates' function to ensure that 'name' is present and has a minimum and minimum length
     validates :name, length: { minimum: 1, maximum: 100 }, presence: true
@@ -29,6 +33,9 @@ class User < ActiveRecord::Base
     # it creates two virtual attributes 'password' and 'password_confirmation' that we use to set and save the password
     # need to install 'BCrypt for 'has_secure_password'
     has_secure_password
+    
+    
+    enum role: [:member, :admin]
     
     # 'BCrypt' is a module that encapsulates complex hashing algorithms 
     # 'BCrypt' takes a plain text password and turns it into an unrecognizable string of characters using a hashing algorithm such as MD5. 

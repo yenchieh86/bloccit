@@ -69,11 +69,18 @@ Comment.find_or_create_by(
 end
 
 # create a user so I can use it to test the app
-user = User.first
-user.update_attributes!(
-    name: "yen",
-    email: "yen@bloc.com",
-    password: "jack4930"
+admin = User.create!(
+    name: "admin Chen",
+    email: "admin@bloc.com",
+    password: "jack4930",
+    role: "admin"
+)
+
+member = User.create!(
+    name: "member Chen",
+    email: "member@bloc.com",
+    password: "jack4930",
+    role: "member"
 )
 
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}

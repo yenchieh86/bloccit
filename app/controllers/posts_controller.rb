@@ -3,8 +3,11 @@
 
 class PostsController < ApplicationController
   
-  #12
   before_action :require_sign_in, except: :show
+  
+  # use 'before_action' filter to check the role of a sign-in user
+  # it will redirect them to the post 'show' view if the 'current-user'(sign-in user) is not authorized
+  before_action :authorize_user, except: [:show, :new, :create]
   
   def show
     # use '.find' to find post that match the ':id' we passed in 'params', and assign the post to @post
@@ -87,5 +90,15 @@ class PostsController < ApplicationController
   
   def post_params
     params.require(:post).permit(:title, :body)
+  end
+  
+  def authorize_user
+    post = Post.find(params[:id])
+    
+    # redirect the user unless they own the post or they are an admin
+    unless current_user == post.user || current_user.admin?
+    flash[:alert] = "You must be an admin to do that."
+    redirect_to [post.topic, post]
+    end
   end
 end

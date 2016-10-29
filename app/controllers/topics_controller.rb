@@ -1,4 +1,12 @@
 class TopicsController < ApplicationController
+    
+    # use the 'before_action' filter and the 'require_sign_in' method to redirect 'guest' who try to access controller action other than 'index' and 'show'
+    # 'before_action' filter and the 'require_sign_in' method are from 'ApplicationController'
+    before_action :require_sign_in, except: [:index, :show]
+    # user 'before_action' filter to check the role of sign-in user
+    # if the sign-in user is not admin, then we will redirect them to the topic 'index' view
+    before_action :authorize_user, except: [:index, :show]
+    
     def index
         @topics = Topic.all
     end
@@ -63,5 +71,14 @@ class TopicsController < ApplicationController
     
     def topic_params
         params.require(:topic).permit(:name, :description, :public)
+    end
+    
+    # define 'authorize_user'
+    # will show alert if user is not a admin
+    def authorize_user
+        unless current_user.admin?
+            flash[:alert] = "You must be an admin to do that."
+            redirect_to topics_path
+        end
     end
 end
