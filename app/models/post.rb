@@ -24,6 +24,10 @@ class Post < ActiveRecord::Base
     # user 'default_scope' to order all posts in scope inorder by 'created_at'(create time - first one will be the most recent post)
     default_scope { order('created_at DESC') }
     
+    scope :ordered_by_title, -> { order("title DESC") }
+    scope :ordered_by_reverse_created_at, -> { order("created_at ASC") }
+    scope :ordered_by_reverse_title, -> { order("title ASC") }
+    
     # use to set that 'Post' the data of 'title', 'body', 'topic' is exist
     # to set up the minimum length of 'title' and 'body'
     validates :title, length: { minimum: 5 }, presence: true
