@@ -7,6 +7,7 @@ class TopicsController < ApplicationController
     # if the sign-in user is not admin, then we will redirect them to the topic 'index' view
     before_action :authorize_user, except: [:index, :show]
     
+    
     def index
         @topics = Topic.all
     end
@@ -76,9 +77,11 @@ class TopicsController < ApplicationController
     # define 'authorize_user'
     # will show alert if user is not a admin
     def authorize_user
-        unless current_user.admin?
+        unless current_user.admin? || current_user.moderator?
             flash[:alert] = "You must be an admin to do that."
             redirect_to topics_path
         end
     end
+    
+    
 end

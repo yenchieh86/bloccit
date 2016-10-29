@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     has_secure_password
     
     
-    enum role: [:member, :admin]
+    enum role: [:member, :admin, :moderator]
     
     # 'BCrypt' is a module that encapsulates complex hashing algorithms 
     # 'BCrypt' takes a plain text password and turns it into an unrecognizable string of characters using a hashing algorithm such as MD5. 

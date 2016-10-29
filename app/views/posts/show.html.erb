@@ -18,18 +18,21 @@
     <div class="col-md-8">
         <p><%= @post.body %></p>
     </div>
-    <% if user_is_authorized_for_post?(@post) %>
-        <div class="col-md-4">
+    <div class="col-md-4">
             <!-- format a link as an Edit button, which driects user to '/posts/@post.id/edit' -->
             <!-- 'edit_post_path(@post)' is a method that generated in routes.rb by 'resources :posts' -->
             <!-- can use 'rake routes' to wiew the post routes -->
+        <% if user_is_authorized_for_post_create_edit?(@post) %>
             <%= link_to "Edit", edit_topic_post_path(@post.topic, @post), class: 'btn btn-success' %>
+        <% end %>
             <!-- use 'link_to' to create a 'delete button, and the text is 'Delete Post' -->
             <!-- use 'method: :delete' to override the default method 'method: :post', so when the user push the button, the route will call delete route -->
             <!-- use 'class:' to set style of the button -->
             <!-- 'data:' is a Hash, 'confirm' is the key of the data hash -->
             <!-- 'data:' will use JavaScript to confirm a action when user presses the button -->
+        <% if user_is_authorized_for_post?(@post) && cant_be_moderator %>
             <%= link_to "Delete Post", [@post.topic, @post], method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this post?'} %>
-        </div>
-    <% end %>
+        <% end %>
+    </div>
+    
 </div>
