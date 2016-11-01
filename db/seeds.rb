@@ -71,17 +71,24 @@ end
 
 # create a user so I can use it to test the app
 admin = User.create!(
-    name: "admin Chen",
+    name: "Admin Chen",
     email: "admin@bloc.com",
     password: "jack4930",
     role: "admin"
 )
 
 member = User.create!(
-    name: "member Chen",
+    name: "Member Chen",
     email: "member@bloc.com",
     password: "jack4930",
     role: "member"
+)
+
+moderator = User.create!(
+    name: "Moderator Chen",
+    email: "moderator@bloc.com",
+    password: "jack4930",
+    role: "moderator"
 )
 
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
