@@ -18,6 +18,7 @@ RSpec.describe Post, type: :model do
   # it's a chained method call for creates a post for a given topic
   let(:post) { topic.posts.create!(title: title, body: body, user: user) }
   
+  it { is_expected.to have_many(:comments) }
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:user) }
   

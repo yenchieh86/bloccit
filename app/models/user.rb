@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
     
     has_many :posts
+    has_many :comments
     
     # to register an inline callback directly after the 'before_save' callback
     # ' { self.email = email.downcase } ' is the code that will run when 'before_save' been called

@@ -7,4 +7,8 @@ class Comment < ActiveRecord::Base
     # another way to say this is 'a post has many comments'
     # set this comment class to relates to the post class
     belongs_to :post
+    belongs_to :user
+    
+    validates :body, length: { minimum: 5 }, presence: true
+    validates :user, presence: true
 end

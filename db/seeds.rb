@@ -63,6 +63,7 @@ Comment.find_or_create_by(
 100.times do
    Comment.create!(
        # use '.sample'(Ruby method) to pick a random post element in the array athat returned by 'Post.all'
+       user: users.sample,
        post: posts.sample,
        body: RandomData.random_paragraph
        ) 
@@ -70,24 +71,17 @@ end
 
 # create a user so I can use it to test the app
 admin = User.create!(
-    name: "Admin Chen",
+    name: "admin Chen",
     email: "admin@bloc.com",
     password: "jack4930",
     role: "admin"
 )
 
 member = User.create!(
-    name: "Member Chen",
+    name: "member Chen",
     email: "member@bloc.com",
     password: "jack4930",
     role: "member"
-)
-
-moderator = User.create!(
-    name: "Moderator Chen",
-    email: "moderator@bloc.com",
-    password: "jack4930",
-    role: "moderator"
 )
 
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}

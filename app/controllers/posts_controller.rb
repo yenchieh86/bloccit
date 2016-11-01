@@ -5,11 +5,13 @@ class PostsController < ApplicationController
   
   before_action :require_sign_in, except: :show
   
+  before_action :moderator_user, except: [:show, :new, :create]
+  
   # use 'before_action' filter to check the role of a sign-in user
   # it will redirect them to the post 'show' view if the 'current-user'(sign-in user) is not authorized
-  before_action :authorize_user, except: [:show, :new, :create]
+  before_action :authorize_user, except: [:show, :new, :create, :edit, :update]
   
-  before_action :moderator_user, except: [:show, :new, :create, :edith, :update]
+  
   
   def show
     # use '.find' to find post that match the ':id' we passed in 'params', and assign the post to @post
@@ -98,15 +100,17 @@ class PostsController < ApplicationController
     post = Post.find(params[:id])
     
     # redirect the user unless they own the post or they are an admin
-    unless current_user == post.user || current_user.admin? || current_user.moderator? 
-      flash[:alert] = "You must be an admin to do that."
-      redirect_to [post.topic, post]
+    unless current_user == post.user || current_user.admin?
+    flash[:alert] = "You must be an admin to do that."
+    redirect_to [post.topic, post]
     end
   end
   
   def moderator_user
-    unless current_user.moderator? || current_user.admin?
-      flash[:alert] = "You need to be an admin to do that"
+    post = Post.find(params[:id])
+    
+    unless current_user == post.user || current_user.moderator? || current_user.admin?
+      flash[:alert] = "You must be an admin or a moderator to do that."
       redirect_to [post.topic, post]
     end
   end
