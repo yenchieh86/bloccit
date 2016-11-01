@@ -6,17 +6,21 @@
     </small>
 </h1>
 
-
-   
-   
-     
-   
-
- 
-
 <div class="row">
     <div class="col-md-8">
         <p><%= @post.body %></p>
+        <div>
+            <h3>Comments</h3>
+            <!-- display comment on the post's show page -->
+            <!-- will call '_comment.html.erb' and render all the comments which belong to the given post -->
+            <%= render @post.comments %>
+        </div>
+        <!-- allow signed user to see the comment form -->
+        <% if current_user %>
+            <!-- render the comment form, and use 'comments/form' because we are rendering the comment form from a post view -->
+            <!-- if didn't use 'comments/form', Rails will render the 'posts form partial' by default -->
+            <%= render 'comments/form', comment: Comment.new, post: @post %>
+        <% end %>
     </div>
     <% if user_is_authorized_for_post?(@post) %>
         <div class="col-md-4">

@@ -12,6 +12,15 @@ Rails.application.routes.draw do
     resources :sponsoredposts
   end
   
+  # shallow nest: never nest resources more than one level deep
+  # we don't want to create route by '/posts/:id', we want it to be '/posts/:post_id/comments', so we use 'only:[]'
+  resources :posts, only: [] do
+    # only add 'create' and 'destroy' routes for comments
+    # we will display comments on the posts 'show' view, so don't need 'index' or 'new' routes
+    # we also won't give user the ability to view individual comments or edit comments, so removing the 'show', 'update' and 'edit' routes
+    resources :comments, only: [:create, :destroy]
+  end
+  
   # create routes for 'new' and create actions
   # the 'only' hash key will prevent Rails from creating unnecessary routes
   resources :users, only: [:new, :create]

@@ -63,6 +63,7 @@ Comment.find_or_create_by(
 100.times do
    Comment.create!(
        # use '.sample'(Ruby method) to pick a random post element in the array athat returned by 'Post.all'
+       user: users.sample,
        post: posts.sample,
        body: RandomData.random_paragraph
        ) 
