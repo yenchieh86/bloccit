@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
     
-    has_many :posts
-    has_many :comments
+    # update the 'post' and 'comments' associations, so will of them will be destroy when their parent user (the user who create them) is deleted
+    has_many :posts, dependent: :destroy
+    has_many :comments, dependent: :destroy
+    has_many :votes, dependent: :destroy
     
     # to register an inline callback directly after the 'before_save' callback
     # ' { self.email = email.downcase } ' is the code that will run when 'before_save' been called

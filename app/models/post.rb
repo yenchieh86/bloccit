@@ -21,8 +21,14 @@ class Post < ActiveRecord::Base
     # then use 'link_to' add a link to delete posts on the show view
     has_many :comments, dependent: :destroy
     
-    # user 'default_scope' to order all posts in scope inorder by 'created_at'(create time - first one will be the most recent post)
-    default_scope { order('created_at DESC') }
+    # add the votes association to 'post'
+    # it relates the models and allows us to call 'post.votes'
+    # use 'dependent: :destroy' to make sure that vote will be destroy then the parent post is deleted
+    has_many :votes, dependent: :destroy
+    
+    # user 'default_scope' to order all posts in scope inorder by 'rank'
+    # 'DESC' is from high to low, 'ASC' is opposite
+    default_scope { order('rank DESC') }
     
     # use to set that 'Post' the data of 'title', 'body', 'topic' is exist
     # to set up the minimum length of 'title' and 'body'
@@ -31,4 +37,30 @@ class Post < ActiveRecord::Base
     validates :topic, presence: true
     validates :user, presence: true
     
+    def up_votes
+        # use '.where(value: 1)' to find the up vote for a post
+        # it fetches a collection of votes with a value of '1'
+        # use 'count' on the collection to get a total of all up votes
+        votes.where(value: 1).count
+    end
+    
+    def down_votes
+        # use '.where(value: -1)' to find the down vote for a post
+        # it fetches a collection of votes with a value of '-1'
+        # use 'count' on the collection to get a total of all down votes
+        votes.where(value: -1).count
+    end
+    
+    def points
+        # this method is from 'ActiveRecord'
+        # use it to add the value of all the given post's votes
+        # use '.sum(:value)' to let program to sum the attribute(:value) in the collection
+        votes.sum(:value)
+    end
+    
+    def update_rank
+     age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
+     new_rank = points + age_in_days
+     update_attribute(:rank, new_rank)
+    end
 end

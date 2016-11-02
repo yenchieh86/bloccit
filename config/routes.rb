@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     # we will display comments on the posts 'show' view, so don't need 'index' or 'new' routes
     # we also won't give user the ability to view individual comments or edit comments, so removing the 'show', 'update' and 'edit' routes
     resources :comments, only: [:create, :destroy]
+    
+    # to create POST routes at the URL 'posts/:id/upvote' and 'posts/:id/down-vote'
+    # 'as'(key) to ':up_vote'(value) pairs at the end stipulate(named) the method names which will be associated with 'up_vote_path' and 'down_vote_path'
+    post '/up-vote' => 'votes#up_vote', as: :up_vote
+    post '/down-vote' => 'votes#down_vote', as: :down_vote
   end
   
   # create routes for 'new' and create actions

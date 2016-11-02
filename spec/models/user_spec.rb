@@ -7,6 +7,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:posts) }
     it { is_expected.to have_many(:comments) }
     
+    # to test the association between user and vote
+    it { is_expected.to have_many(:votes) }
+    
     # use to tests field validation and attributes
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_length_of(:name).is_at_least(1) }
