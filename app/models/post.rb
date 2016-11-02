@@ -15,6 +15,7 @@ class Post < ActiveRecord::Base
     belongs_to :topic
     belongs_to :user
     
+    
     # set this post class to relate to the comment class
     # by using 'has_many' method can allow a post instance to have many comments, relate to many comment class, also provide method for us to access to those comment
     # use 'dependent: :destroy' to make sure that we delete the post's comment too
@@ -25,6 +26,8 @@ class Post < ActiveRecord::Base
     # it relates the models and allows us to call 'post.votes'
     # use 'dependent: :destroy' to make sure that vote will be destroy then the parent post is deleted
     has_many :votes, dependent: :destroy
+    
+    after_save :create_vote
     
     # user 'default_scope' to order all posts in scope inorder by 'rank'
     # 'DESC' is from high to low, 'ASC' is opposite
@@ -59,8 +62,15 @@ class Post < ActiveRecord::Base
     end
     
     def update_rank
-     age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
-     new_rank = points + age_in_days
-     update_attribute(:rank, new_rank)
+        age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
+        new_rank = points + age_in_days
+        update_attribute(:rank, new_rank)
     end
+    
+    private
+    
+    def create_vote
+        user.votes.create(value: 1, post: self)
+    end
+    
 end
