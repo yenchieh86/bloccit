@@ -11,4 +11,14 @@ class Comment < ActiveRecord::Base
     
     validates :body, length: { minimum: 5 }, presence: true
     validates :user, presence: true
+    
+    # app will call ':send_favorite_emails' after create a comment for post
+    # it will find 'favorites' associated with its comment's post, and loop over them. It will create and send email for each favorite
+    after_create :send_favorite_emails
+    
+    def send_favorite_emails
+        post.favorites.each do |favorite|
+            FavoriteMailer.new_comment(favorite.user, post, self).deliver_now
+        end
+    end
 end

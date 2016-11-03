@@ -51,6 +51,9 @@ gem 'bootstrap-sass'
 # use to install Pry to rails
 gem 'pry-rails'
 
+# for adding Figaro gem
+gem 'figaro', '1.0'
+
 # because the Gemfile has been changed, so need to type 'bundle install --without productiob' in the Terminal's command line
 # this command will installs everything specified in the 'Gemfile' and ensures that all gems work well
 # '--without production' is to ignores all gems which in 'group :production'

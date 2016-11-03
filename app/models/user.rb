@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
     has_many :posts, dependent: :destroy
     has_many :comments, dependent: :destroy
     has_many :votes, dependent: :destroy
+    has_many :favorites, dependent: :destroy
     
     # to register an inline callback directly after the 'before_save' callback
     # ' { self.email = email.downcase } ' is the code that will run when 'before_save' been called
@@ -55,4 +56,10 @@ class User < ActiveRecord::Base
         end
     end
     
+    # it take a 'post object' and use 'where' to retireve the user's favorites with a 'post_id' that matches 'post_id'
+    # it will return an array of one item if the user has favorited post, or it will return an empty array
+    # use 'first' to return the favorite or nil
+    def favorite_for(post)
+        favorites.where(post_id: post.id).first
+    end
 end

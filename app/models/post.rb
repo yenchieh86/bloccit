@@ -26,6 +26,8 @@ class Post < ActiveRecord::Base
     # use 'dependent: :destroy' to make sure that vote will be destroy then the parent post is deleted
     has_many :votes, dependent: :destroy
     
+    has_many :favorites, dependent: :destroy
+    
     # user 'default_scope' to order all posts in scope inorder by 'rank'
     # 'DESC' is from high to low, 'ASC' is opposite
     default_scope { order('rank DESC') }
