@@ -9,7 +9,7 @@ class FavoriteMailer < ApplicationMailer
         headers["In-Reply-To"] = "<post/#{post.id}@your-app-name.example>"
         headers["References"] = "<post/#{post.id}@your-app-name.example>"
         
-        @user - user
+        @user = user
         @post = post
         @comment = comment
         
