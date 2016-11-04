@@ -14,7 +14,7 @@ RSpec.describe PostsController, type: :controller do
   let(:my_user) { create(:user) }
   let(:other_user) { create(:user) }
   let(:my_post) { create(:post, topic: my_topic, user: my_user) }
-  
+
   # add a context for a 'un-signed-in' guest
   # context will organize tests base on the state of an object
   context "guest user" do
@@ -25,7 +25,7 @@ RSpec.describe PostsController, type: :controller do
         expect(response).to have_http_status(:success)
       end
       
-      it "renders the #how view" do
+      it "renders the #show view" do
         get :show, topic_id: my_topic.id, id: my_post.id
         expect(response).to render_template :show
       end

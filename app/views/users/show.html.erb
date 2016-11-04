@@ -18,9 +18,17 @@
         </div>
     </div>
 </div>
-
-<h2>Posts</h2>
-<%= render @user.posts %>
- 
-<h2>Comments</h2>
-<%= render @user.comments %>
+<% if user_posts_any?(@user) %>
+   <h2>Posts</h2>
+        <%= render @user.posts %>
+<% else %>
+    <%= @user.name %> has no submitted any post
+<% end %>
+<br/>
+<% if user_comment_any?(@user) %>
+    <h2>Comments</h2>
+        <%= render @user.comments %>
+<% else %>
+    <%= @user.name %> has no submitted any comment
+<% end %>
+    
