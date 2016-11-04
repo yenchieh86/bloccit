@@ -9,11 +9,22 @@ class FavoriteMailer < ApplicationMailer
         headers["In-Reply-To"] = "<post/#{post.id}@your-app-name.example>"
         headers["References"] = "<post/#{post.id}@your-app-name.example>"
         
-        @user - user
+        @user = user
         @post = post
         @comment = comment
         
         # 'mail' method takes a 'hash' of mail relevant information - the subject, the 'to:' address, the 'from', and any 'cc' or 'bcc' information. And will prepares the email to be sent
         mail(to: user.email, subject: "New comment on #{post.title}")
+    end
+    
+    def new_post(post)
+
+        headers["Message-ID"] = "<posts/#{post.id}@your-app-name.example>"
+        headers["In-Reply-To"] = "<post/#{post.id}@your-app-name.example>"
+        headers["References"] = "<post/#{post.id}@your-app-name.example>"
+       
+        @post = post
+        
+        mail(to: post.user.email, subject: "New post on #{post.title}")
     end
 end
