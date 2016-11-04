@@ -32,6 +32,9 @@ class Post < ActiveRecord::Base
     # 'DESC' is from high to low, 'ASC' is opposite
     default_scope { order('rank DESC') }
     
+    scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
+
+    
     # use to set that 'Post' the data of 'title', 'body', 'topic' is exist
     # to set up the minimum length of 'title' and 'body'
     validates :title, length: { minimum: 5 }, presence: true

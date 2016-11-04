@@ -10,17 +10,11 @@ include SessionsHelper
 # a test for controller can allow us to simulate controller action , such as HTTP request
 RSpec.describe PostsController, type: :controller do
 
-  # create 'user' use to associate to 'post'
-  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+  let(:my_topic) { create(:topic) }
+  let(:my_user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:my_post) { create(:post, topic: my_topic, user: my_user) }
   
-  let(:other_user) { User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld", role: :member) }
-  
-  # create 'my_topic' use to be posts' parent, because we want posts nest under topic
-  let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
-  
-  # update 'my_post' for letting it belong to 'my_topic'
-  let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
-
   # add a context for a 'un-signed-in' guest
   # context will organize tests base on the state of an object
   context "guest user" do

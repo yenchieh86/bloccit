@@ -28,6 +28,7 @@ group :development, :test do
   
   # use the methods provided by Shoulda     
   gem 'shoulda'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 # used for encrypting User passwords

@@ -8,15 +8,15 @@ RSpec.describe Post, type: :model do
   let(:body) { RandomData.random_paragraph }
   
   # create a parent topic for 'post'
-  let(:topic) { Topic.create!(name: name, description: description) }
+  let(:topic) { create(:topic) }
   
   # create a user to associate with a test post
-  let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+  let(:user) { create(:user) }
   
   # associate 'user' with 'post' when we create the test post
   # associate 'post' with 'topic' through 'topic.posts.create!'
   # it's a chained method call for creates a post for a given topic
-  let(:post) { topic.posts.create!(title: title, body: body, user: user) }
+  let(:post) { create(:post) }
   
   it { is_expected.to have_many(:comments) }
   
@@ -40,7 +40,7 @@ RSpec.describe Post, type: :model do
   # make sure that 'post' has two attribute: 'title' and 'body'
   describe "attributes" do
       it "has a title, body, and user attribute" do
-          expect(post).to have_attributes(title: title, body: body, user: user)
+        expect(post).to have_attributes(title: post.title, body: post.body)
       end
   end
   

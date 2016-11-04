@@ -1,11 +1,10 @@
 <div class="media">
+    <%= render partial: 'votes/voter', locals: { post: post } %>
     <div class="media-body">
         <h4 class="media-heading">
-            <!-- refactor about how to link to individual posts using the 'topic_post_path' method -->
-            <!-- this method takes a 'topic' and a 'post' and generates a path to the posts 'show' view -->
-            <%= link_to post.title, topic_post_path(@topic, post) %>
+            <%= link_to post.title, topic_post_path(post.topic, post) %>
+            <%= render partial: "labels/list", locals: { labels: post.labels } %>
         </h4>
-        <!-- add submission and comment details for each post in the show view -->
         <small>
             submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
             <%= post.comments.count %> Comments

@@ -5,7 +5,7 @@ include SessionsHelper
 RSpec.describe TopicsController, type: :controller do
 
     # use let to create a variable 'my_topic' for below tests
-    let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+    let(:my_topic) { create(:topic) }
     
     # for 'guest'
     context "guest" do
