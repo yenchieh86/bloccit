@@ -1,13 +1,9 @@
-<!-- use 'favorite_for' method. it will return a 'favorite'  -->
 <% if favorite = current_user.favorite_for(post) %>
-    <!-- it will display 'unfavorite link' to the post if the current user already set a favorite for the current post -->
-    <!-- 'link_to' can take a block argument of HTML, we can give the link an icon and label -->
-    <%= link_to [post, favorite], class: 'btn btn-danger', method: :delete do %>
-        <i class="glyphicon glyphicon-star-empty"> </i>&nbsp; Unfavorite
-    <% end %>
+  <%= link_to [post, favorite], class: 'btn btn-danger', method: :delete do %>
+    <i class="glyphicon glyphicon-star-empty"> </i>&nbsp; Unfavorite
+  <% end %>
 <% else %>
-    <!-- will display a 'favorite link' to the post if the current user doesn't set a favorite for the current post -->       
-    <%= link_to [post, Favorite.new], class: 'btn btn-primary', method: :post do %>
-        <i class="glyphicon glyphicon-star"> </i>&nbsp; Favorite
-    <% end %>
+  <%= link_to [post, Favorite.new], class: 'btn btn-primary', method: :post do %>
+    <i class="glyphicon glyphicon-star"> </i>&nbsp; Favorite
+  <% end %>
 <% end %>

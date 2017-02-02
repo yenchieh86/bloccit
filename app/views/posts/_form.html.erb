@@ -1,29 +1,23 @@
-<!-- this code will be pass into the 'render partial' block in 'posts/edit.html.erb'-->
-<!-- this is a file will 'partial, so it have to name this way '_form.html', or it won't work for Rails -->
 <%= form_for [topic, post] do |f| %>
-    <% if post.errors.any? %>
-        <!-- use alert to display number of errors and their messages -->
-        <div class="alert alert-danger">
-            <!-- use 'pluralize' method to pluralize "error" if there are more than one error -->
-            <h4><%= pluralize(post.errors.count, "error") %>.</h4>
-            <ul>
-                <% post.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-    <!-- use 'form_froup_tag' to display errors from 'title' -->
-    <%= form_group_tag(post.errors[:title]) do %>
-        <%= f.label :title %>
-        <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
-    <% end %>
-    <!-- use 'form-group-tag' to display errors from body -->
-    <%= form_group_tag(post.errors[:body]) do %>
-        <%= f.label :body %>
-        <%= f.text_area :body, row: 8, class: 'form-conttrol', placeholder: "Enter post body" %>
-    <% end %>
-    <div class="form-group">
-        <%= f.submit "Save", class: 'btn btn-success' %>
-    </div>    
-    <% end %>
+  <% if post.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(post.errors.count, "error") %>.</h4>
+      <ul>
+        <% post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_group_tag(post.errors[:title]) do %>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
+  <% end %>
+  <%= form_group_tag(post.errors[:body]) do %>
+    <%= f.label :body %>
+    <%= f.text_area :body, row: 8, class: 'form-conttrol', placeholder: "Enter post body" %>
+  <% end %>
+  <div class="form-group">
+    <%= f.submit "Save", class: 'btn btn-success' %>
+  </div>    
+<% end %>

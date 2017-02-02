@@ -11,16 +11,11 @@ class SponsoredpostsController < ApplicationController
   def edit
     @sponsoredpost = Sponsoredpost.find(params[:id])
   end
-  
+
   def create
-    @sponsoredpost = Sponsoredpost.new
-    @sponsoredpost.title = params[:sponsoredpost][:title]
-    @sponsoredpost.body = params[:sponsoredpost][:body]
-    @sponsoredpost.price = params[:sponsoredpost][:price]
     @topic = Topic.find(params[:topic_id])
-    
-    @sponsoredpost.topic = @topic
-    
+    @sponsoredpost = @topic.sponsoredposts.build(sponsoredpost_params)
+
     if @sponsoredpost.save
       flash[:notice] = "Sponsoredpost was saved."
       redirect_to [@topic, @sponsoredpost]
@@ -29,13 +24,11 @@ class SponsoredpostsController < ApplicationController
       render :new
     end
   end
-  
+
   def update
     @sponsoredpost = Sponsoredpost.find(params[:id])
-    @sponsoredpost.title = params[:sponsoredpost][:title]
-    @sponsoredpost.body = params[:sponsoredpost][:body]
-    @sponsoredpost.price = params[:sponsoredpost][:price]
-    
+    @sponsoredpost.assign_attributes(sponsoredpost_params)
+
     if @sponsoredpost.save
       flash[:notice] = "Sponsoredpost was saved."
       redirect_to [@sponsoredpost.topic, @sponsoredpost]
@@ -44,10 +37,10 @@ class SponsoredpostsController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @sponsoredpost = Sponsoredpost.find(params[:id])
-    
+
     if @sponsoredpost.destroy
       flash[:notice] = "\"#{@sponsoredpost.title}\" was deleted successfully."
       redirect_to @sponsoredpost.topic
@@ -55,6 +48,11 @@ class SponsoredpostsController < ApplicationController
       flash.now[:alert] = "There was an error deleting the sponsoredpost."
       render :show
     end
-    
+  end
+
+  private
+
+  def sponsoredpost_params
+    params.require(:sponsoredpost).permit(:title, :body, :price)
   end
 end

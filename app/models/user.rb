@@ -1,70 +1,38 @@
 class User < ActiveRecord::Base
-    
-    # update the 'post' and 'comments' associations, so will of them will be destroy when their parent user (the user who create them) is deleted
-    has_many :posts, dependent: :destroy
-    has_many :comments, dependent: :destroy
-    has_many :votes, dependent: :destroy
-    has_many :favorites, dependent: :destroy
-    
-    # to register an inline callback directly after the 'before_save' callback
-    # ' { self.email = email.downcase } ' is the code that will run when 'before_save' been called
-    before_save { set_name }
-    before_save { self.email = email.downcase if email.present? }
-    
-    # '||=' is a Ruby trick
-    # 'self.role ||= :member' is a shorthand for 'self.role = :member if self.role.nil?'
-    before_save { self.role ||= :member }
-    
-    
-    # use 'validates' function to ensure that 'name' is present and has a minimum and minimum length
-    validates :name, length: { minimum: 1, maximum: 100 }, presence: true
-    
-    # use 2 validations to validate password
-    # 1: to ensure that new user has a valid password
-    # 2: to ensure that the password is more than 6 characters long
-    # 'allow_blank: true' is use to skip the validation if there's no updated password given (won't force to change password when user want to change other attributes)
-    validates :password, presence: true, length: { minimum: 6 }, if: "password_digest.nil?"
-    validates :password, length: { minimum: 6 }, allow_blank: true
-    
-    # make sure email is present, unique, case insensitive, has minimum maximum length, and a properly formatted email address
-    validates :email,
-              presence: true,
-              uniqueness: { case_sensitive: false },
-              length: { minimum: 3, maximum: 254 }
-              
-    # it abstracts away much of the complexity of obfuscating user passwords using hashing algorighms which we would otherwise be inclined to write to securely save password
-    # it need a 'password_digest'attribute on the model it is applied to .
-    # it creates two virtual attributes 'password' and 'password_confirmation' that we use to set and save the password
-    # need to install 'BCrypt for 'has_secure_password'
-    has_secure_password
-    
-    
-    enum role: [:member, :admin]
-    
-    # 'BCrypt' is a module that encapsulates complex hashing algorithms 
-    # 'BCrypt' takes a plain text password and turns it into an unrecognizable string of characters using a hashing algorithm such as MD5. 
-    # use 'BCrypt' is more save than hashing algorithms, because it can't be reverse even someone has access to the password
-    
-    def set_name
-        if name 
-            array = name.split(' ')
-            new_array = []
-            array.each do |a|
-                new_array << a.capitalize
-            end
-            self.name = new_array.join(' ')
-        end
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :votes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+  before_save { set_name }
+  before_save { self.email = email.downcase if email.present? }
+  before_save { self.role ||= :member }
+
+  validates :name, length: { minimum: 1, maximum: 100 }, presence: true
+  validates :password, presence: true, length: { minimum: 6 }, if: "password_digest.nil?"
+  validates :password, length: { minimum: 6 }, allow_blank: true
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 254 }
+
+  has_secure_password
+  enum role: [:member, :admin]
+
+  def set_name
+    if name 
+      array = name.split(' ')
+      new_array = []
+      array.each do |a|
+        new_array << a.capitalize
+      end
+      self.name = new_array.join(' ')
     end
-    
-    # it take a 'post object' and use 'where' to retireve the user's favorites with a 'post_id' that matches 'post_id'
-    # it will return an array of one item if the user has favorited post, or it will return an empty array
-    # use 'first' to return the favorite or nil
-    def favorite_for(post)
-        favorites.where(post_id: post.id).first
-    end
-    
-    def avatar_url(size)
-        gravatar_id = Digest::MD5::hexdigest(self.email).downcase
-        "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
-    end
+  end
+
+  def favorite_for(post)
+    favorites.where(post_id: post.id).first
+  end
+
+  def avatar_url(size)
+    gravatar_id = Digest::MD5::hexdigest(self.email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+  end
 end

@@ -1,14 +1,14 @@
 <h1>Sign Up Confirmation</h1>
 <div>
-    <div>
-        <h3>Are you sure these values are correct?</h3>
-    </div>
-    <div>
-        <h4>Email:  <%= @user.email %></h4>
-        <h4>Name: <%= @user.name %></h4>
-    </div>
+  <div>
+    <h3>Are you sure these values are correct?</h3>
+  </div>
+  <div>
+    <h4>Email:  <%= @user.email %></h4>
+    <h4>Name: <%= @user.name %></h4>
+  </div>
 </div>
 <div>
-    <%= button_to "Yes", {controller: "users", action: "create", params: params}, class: 'btn btn-success' %>
-    <%= button_to "No", {controller: "users", action: "new"}, class: 'btn btn-cancle', :method => :get %>
+  <%= button_to "Yes", {controller: "users", action: "create", params: params}, class: 'btn btn-success' %>
+  <%= button_to "No", {controller: "users", action: "new"}, class: 'btn btn-cancle', :method => :get %>
 </div>

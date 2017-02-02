@@ -1,64 +1,47 @@
-<!-- this file contain all the common code that need to be include in all views files -->
 <!DOCTYPE html>
 <html>
-<head>
-  
-  <title>Bloccit</title>
-  <!-- use Bootstrap's style -->
-  <!-- use 'width=device-width, initial-scale=1' to tell browsers to diplay the page at regular size when user using small and hugh-pixel screens
-  if with out this code, the page won't display properly -->
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- if the code inside of ' < % .. % >', is read as Ruby language, but won't layout on the screen -->
-  <!-- if the code inside of ' < % = .. % >', is read as Ruby language, and will layout on the screen -->
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-
-</head>
-<body>
-  <div class="container">
-    <ul class="nav nav-tabs">
-      <!-- called 'link_to' method from Rails, and it will return a string of hyperline's name -->
-      <!-- 'link_to' method takes two arguments: a string (use to display), a path (a Rails method to access the specific route -->   
-      <!-- it's same as '<a href="/welcome/index">Home</a>' -->
-      <li><%= link_to "Bloccit", root_path %></li>
-      <li><%= link_to "Topics", topics_path %></li>
-      <li><%= link_to "About", about_path %></li>
-      <div class="pull-right user-info">
-        <% if current_user %>
-            <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
-            <div class="pull-right">
-              <%= link_to current_user.name, user_path(current_user) %> <br/> <%= link_to "Sign Out", session_path(current_user), method: :delete %>
-           </div>
-        <% else %>
-          <%= link_to "Sign In", new_session_path %> or
-          <%= link_to "Sign Up", new_user_path %>
-        <% end %>
-      </div>
-    </ul>
-    
-    <% if flash[:notice] %>
-      <div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <%= flash[:notice] %>
-      </div>
-    <% elsif flash.now[:alert] %>
-      <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <% flash.now[:alert] %>
-      </div>
-    <%elsif flash[:alert] %>
-      <div class="alert alert-warning">
-        <button type="button class="close" data-dismiss="alert">&times;</button>
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-  
-  
-    <!-- 'yield' is use to set a area that can replace by other file's view -->
-    <%= yield %>
-  </div>
-
-</body>
+  <head>
+    <title>Bloccit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li><%= link_to "Bloccit", root_path %></li>
+        <li><%= link_to "Topics", topics_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <div class="pull-right user-info">
+          <% if current_user %>
+              <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+              <div class="pull-right">
+                <%= link_to current_user.name, user_path(current_user) %> <br/> <%= link_to "Sign Out", session_path(current_user), method: :delete %>
+             </div>
+          <% else %>
+            <%= link_to "Sign In", new_session_path %> or
+            <%= link_to "Sign Up", new_user_path %>
+          <% end %>
+        </div>
+      </ul>
+      <% if flash[:notice] %>
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:notice] %>
+            </div>
+          <% elsif flash.now[:alert] %>
+            <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <% flash.now[:alert] %>
+            </div>
+          <%elsif flash[:alert] %>
+            <div class="alert alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+      <%= yield %>
+    </div>
+  </body>
 </html>

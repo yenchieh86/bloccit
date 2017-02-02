@@ -1,22 +1,37 @@
-/* use '@import' to integrate the Bootstrap to the app */
-/* then add '//= require bootstrap' into 'app/assets/javascripts/application.js' */
 @import "bootstrap-sprockets";
-
 @import "bootstrap";
 
 .user-info {
-    margin-top: 9px;
+  margin-top: 9px;
 }
 
 .nav {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .user-info {
-    width: 150px;
+  width: 150px;
 }
 
 .userimg{
-    margin-bottom: 5px;
-    height: 30px;
+  margin-bottom: 5px;
+  height: 30px;
+}
+
+.gravatar {
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.vote-arrows {
+  width: 40px;
+  text-align: center;
+}
+
+.social-btn {
+  height: 50px;
+  width: 100px;
+  background-color: black;
+  color: white;
+  padding: 5;
 }
