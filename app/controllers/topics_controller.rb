@@ -31,7 +31,7 @@ class TopicsController < ApplicationController
 
   def update
     @topic = Topic.find(params[:id])
-        @topic.assign_attributes(topic_params)
+    @topic.assign_attributes(topic_params)
 
     if @topic.save
       flash[:notice] = "Topic was updated."
