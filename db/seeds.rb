@@ -1,20 +1,22 @@
 require 'random_data'
 
-# create Users
-# 'random_name' and 'random_email' need to be defined in </lib/random_data.rb> as 'slef.random_name' and 'self.random_email'
+admin = User.create!(
+    name: "Yen Chen",
+    email: "yenchieh86@hotmail.com",
+    password: "jack4930",
+    role: "admin"
+)
+
 5.times do
-    User.create!(
-        #3
-        name: RandomData.random_name,
-        email: RandomData.random_email,
-        password: RandomData.random_sentence
-    )
+  User.create!(
+    name: RandomData.random_name,
+    email: RandomData.random_email,
+    password: RandomData.random_sentence
+  )
 end
 
 users = User.all
 
-
-# create topics
 15.times do
     Topic.create!(
         name: RandomData.random_sentence,
@@ -31,32 +33,17 @@ Post.find_or_create_by(
     body: "HIHIYen"
     )
 
-# create Posts
 50.times do
-    # add a '!' after '.create' let program to raise an error if there's a problem with the data we're seeding
-    # if use '.create' without the '!', it won't raise an error when program fails
     post = Post.create!(
-        # at this moment, the 'RandomData' method is not exist yet, so it will create some random strings for 'title' and 'body'
-        # it will increase productivity if we are writing code for classes and methods that don't exist
-        # writing code for the class and method that don't exist can help us to stay fouchsed on one problem at a time
-        # so the process will be: 'use a not existed method to write code' >> 'create a file and statement for that methoed'
         user: users.sample,
         topic: topics.sample,
         title: RandomData.random_sentence,
         body: RandomData.random_paragraph
         )
-        
-    # update the 'time' to a pose(when does this post created)
-    # will allow us to see our ranking algorithm in action later in the checkpoint
+
     post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
-    
-    # create 1~5 votes for each post.
-    # use '[-1, 1]' to randomly create either an up vote or a down vote
     rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
-
 end
-
-
 
 posts = Post.all
 
@@ -65,30 +52,17 @@ Comment.find_or_create_by(
     body: "hihihi"
 )
 
-
-# create Comments
-# use '.times' on an 'Inteer'(a number object)
-# '.times' will loop codes (in the given block) 100 times
 100.times do
    Comment.create!(
-       # use '.sample'(Ruby method) to pick a random post element in the array athat returned by 'Post.all'
        user: users.sample,
        post: posts.sample,
        body: RandomData.random_paragraph
        ) 
 end
 
-# create a user so I can use it to test the app
-admin = User.create!(
-    name: "admin Chen",
-    email: "admin@bloc.com",
-    password: "jack4930",
-    role: "admin"
-)
-
 member = User.create!(
     name: "member Chen",
-    email: "member@bloc.com",
+    email: "member@hotmail.com",
     password: "jack4930",
     role: "member"
 )
@@ -96,7 +70,7 @@ member = User.create!(
 50.times { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
 50.times { Question.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, resolved: (rand(1..3) > 2))}
 50.times { Sponsoredpost.create!(topic: topics.sample, title: RandomData.random_sentence, body: RandomData.random_paragraph, price: rand(0..50))}
-# display informations
+
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{Topic.count} topics creates"
